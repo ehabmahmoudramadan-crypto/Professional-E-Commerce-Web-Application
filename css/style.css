@@ -1,0 +1,422 @@
+/* 1. تعريف الألوان كمتغيرات (الوضع الافتراضي: Light) */
+:root {
+    --bg-main: #f9fafb;
+    --bg-card: #ffffff;
+    --bg-nav: rgba(255, 255, 255, 0.85);
+    --text-main: #1f2937;
+    --text-muted: #4b5563;
+    --border-color: #f3f4f6;
+    --input-bg: #ffffff;
+}
+
+/* 2. لما الـ body ياخد كلاس dark، الألوان تتقلب تلقائياً */
+body.dark {
+    --bg-main: #111827;      /* رمادي غامق جداً */
+    --bg-card: #1f2937;      /* رمادي أقل غمقاً للكروت */
+    --bg-nav: rgba(17, 24, 39, 0.85);
+    --text-main: #f9fafb;    /* نص أبيض مريح للعين */
+    --text-muted: #9ca3af;
+    --border-color: #374151;
+    --input-bg: #374151;
+}
+
+/* 3. تطبيق المتغيرات على جسم الموقع */
+body {
+    background-color: var(--bg-main) !important;
+    color: var(--text-main) !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* تحديث كلاس الـ nav-bar القديم لليقرا المتغيرات */
+.nav-bar {
+    position: fixed !important;
+    top: 0; left: 0; right: 0; z-index: 50; height: 64px;
+    background-color: var(--bg-nav) !important;
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color) !important;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease;
+}
+
+/* تحديث كارت المنتج ليقرا المتغيرات */
+.prod-card {
+    background-color: var(--bg-card) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-main) !important;
+    border-radius: 16px; padding: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    transition: all 0.3s ease; display: flex; flex-direction: column;
+}
+.prod-title { color: var(--text-main) !important; }
+.prod-price { color: var(--text-main) !important; }
+.cat-btn { background-color: var(--bg-card) !important; color: var(--text-muted) !important; border: 1px solid var(--border-color) !important; }
+.search-input { background-color: var(--input-bg) !important; color: var(--text-main) !important; border: 1px solid var(--border-color) !important; }
+
+/* زرار الـ Dark Mode الشيك */
+.theme-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 8px;
+}
+.theme-btn:hover { color: #4f46e5; }
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    color: #4f46e5; /* لون إنديغو */
+    cursor: pointer;
+}
+
+/* صندوق البحث */
+.search-box {
+    position: relative;
+    flex: 1;
+    max-width: 448px;
+    margin: 0 32px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 8px 16px 8px 40px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    outline: none;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+}
+
+.search-input:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+/* عداد السلة (الـ Badge) */
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #4f46e5;
+    color: white;
+    font-size: 0.75rem;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* كارت المنتج وعناصره */
+.prod-card {
+    background-color: white;
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid #686a6c;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.prod-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+    background-color: rgb(194, 189, 189);
+    transition: all 1s ease;
+
+
+}
+
+.img-box {
+    height: 192px;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: #e1e3e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 16px;
+}
+
+
+.prod-img {
+    height: 144px;
+    object-fit: contain;
+    transition: transform 0.3s;
+}
+
+.prod-card:hover .prod-img {
+    transform: scale(1.05);
+}
+
+.badge-cat {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: rgba(17, 24, 39, 0.05);
+    color: #1f2937;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+/* تفاصيل الكارت والأزرار */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.prod-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 40px;
+}
+
+.card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 16px;
+    border-t: 1px solid #f9fafb;
+}
+
+.prod-price {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.prod-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #f59e0b; /* لون ذهبي للنجوم */
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.btn-add {
+    width: 100%;
+    margin-top: 16px;
+    background-color: #4f46e5;
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 10px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-add:hover {
+    background-color: #4338ca;
+}
+/* شريط التصنيفات */
+.categories-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 32px;
+    overflow-x: auto; /* عشان لو الشاشة صغيرة تلف بسلاسة */
+    padding-bottom: 8px;
+}
+
+/* إخفاء شريط التمرير الافتراضي عشان الشكل يفضل نظيف */
+.categories-bar::-webkit-scrollbar {
+    display: none;
+}
+
+.cat-btn {
+    background-color: white;
+    color: #4b5563;
+    border: 1px solid #e5e7eb;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.cat-btn:hover {
+    border-color: #4f46e5;
+    color: #27272d;
+}
+
+/* الكلاس النشط لما يضغط على الزرار */
+.cat-btn.active {
+    background-color: #4f46e5;
+    color: white;
+    border-color: #151517;
+    box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+}
+
+/* ضبط تباعد الأزرار في الهيدر */
+#theme-btn, #wishlist-btn, #cart-btn {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+#theme-btn:hover, #wishlist-btn:hover, #cart-btn:hover {
+    background-color: var(--border-color); /* تأثير خفيف عند الوقوف بالماوس */
+}
+
+/* التموضع الاحترافي للـ Badges فوق الأيقونة بالظبط */
+.cart-badge {
+    position: absolute !important;
+    top: 0px !important;
+    right: 0px !important;
+    transform: translate(25%, -25%); /* ترحيل هندسي مضبوط للمركز */
+    color: white !important;
+    font-size: 0.7rem !important;
+    width: 18px !important;
+    height: 18px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-weight: 800 !important;
+    border: 2px solid var(--bg-nav) !important; /* حافة صغيرة تفصل العداد عن الأيقونة */
+}
+/* تنسيق قسم الـ Hero */
+.hero-container {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    border-radius: 24px;
+    overflow: hidden;
+    margin-bottom: 40px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.hero-slider {
+    height: 100%;
+    width: 100%;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 60px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.6s ease-in-out;
+    transform: translateX(20px);
+}
+
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.hero-content {
+    max-width: 50%;
+    color: white;
+}
+
+.hero-badge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 6px 12px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    backdrop-filter: blur(4px);
+}
+
+.hero-content h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin: 16px 0;
+    line-height: 1.2;
+}
+
+.hero-content p {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 24px;
+    color: #e5e7eb !important;
+}
+
+.hero-btn {
+    background: white;
+    color: #4f46e5;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.hero-btn:hover {
+    transform: scale(1.05);
+}
+
+.hero-image {
+    font-size: 120px;
+    color: rgba(255, 255, 255, 0.15);
+    transform: rotate(-15deg);
+}
+
+/* نقاط التنقل السفلى */
+.slider-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dot.active {
+    background: white;
+    width: 24px;
+    border-radius: 10px;
+}
+
+/* استجابة الشاشات الصغيرة */
+@media (max-width: 768px) {
+    .hero-container { height: 400px; }
+    .slide { flex-direction: column; text-align: center; padding: 40px 20px; }
+    .hero-content { max-width: 100%; }
+    .hero-image { display: none; }
+}
