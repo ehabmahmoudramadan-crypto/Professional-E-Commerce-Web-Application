@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOBA STORE</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script> </head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+
+    <nav class="nav-bar">
+        <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
+            
+            <div class="nav-logo">HOBA<span class="text-gray-800">STORE</span></div>
+            
+            <div class="search-box">
+                <input type="text" id="search" placeholder="ابحث هنا..." class="search-input">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400"></i>
+            </div>
+            <div class="flex items-center gap-4">
+                <button id="theme-btn" class="theme-btn">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+
+                <button id="wishlist-btn" onclick="toggleWishlistFilter()" class="relative text-gray-700 dark:text-gray-300 hover:text-red-500 transition-colors bg-transparent border-none cursor-pointer">
+                    <i class="fa-solid fa-heart text-2xl"></i>
+                    <span id="wish-count" class="cart-badge bg-red-500 hidden">0</span>
+                </button>
+
+                <button id="cart-btn" class="relative text-gray-700 dark:text-gray-300 hover:text-indigo-600 transition-colors bg-transparent border-none cursor-pointer">
+                    <i class="fa-solid fa-bag-shopping text-2xl"></i>
+                    <span id="count" class="cart-badge">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+   <main class="max-w-7xl mx-auto px-4 pt-36 pb-8">
+        <div class="hero-container">
+            <div id="hero-slider" class="hero-slider">
+                <div class="slide active" style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);">
+                    <div class="hero-content">
+                        <span class="hero-badge">مجموعة الصيف 2024 👕</span>
+                        <h1>تخفيضات تصل إلى <span class="text-yellow-300">50%</span></h1>
+                        <p>استمتع بأفضل الخامات وأحدث الصيحات العالمية بأسعار لا تقبل المنافسة.</p>
+                        <button onclick="document.querySelector('.categories-bar').scrollIntoView({behavior: 'smooth'})" class="hero-btn">تسوق الآن</button>
+                    </div>
+                    <div class="hero-image">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                    </div>
+                </div>
+
+                <div class="slide" style="background: linear-gradient(135deg, #111827 0%, #374151 100%);">
+                    <div class="hero-content">
+                        <span class="hero-badge">قسم الإلكترونيات ⚡</span>
+                        <h1>أحدث الأجهزة الذكية وصلت!</h1>
+                        <p>اكتشف تشكيلة واسعة من الساعات الذكية والسماعات بأعلى جودة وضمان.</p>
+                        <button onclick="filterCategory('electronics', this)" class="hero-btn">اكتشف المزيد</button>
+                    </div>
+                    <div class="hero-image">
+                        <i class="fa-solid fa-laptop"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slider-dots">
+                <span class="dot active" onclick="currentSlide(0)"></span>
+                <span class="dot" onclick="currentSlide(1)"></span>
+            </div>
+        </div>
+        <div class="categories-bar">
+            <button class="cat-btn active" onclick="filterCategory('all', this)">الكل</button>
+            <button class="cat-btn" onclick="filterCategory('men\'s clothing', this)">ملابس رجالي</button>
+            <button class="cat-btn" onclick="filterCategory('women\'s clothing', this)">ملابس نسائي</button>
+            <button class="cat-btn" onclick="filterCategory('jewelery', this)">إكسسوارات</button>
+            <button class="cat-btn" onclick="filterCategory('electronics', this)">إلكترونيات</button>
+        </div>
+
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-gray-800">أحدث المنتجات</h1>
+        </div>
+
+        <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            </div>
+    </main>
+    <main id="checkout-view" class="max-w-7xl mx-auto px-4 pt-24 pb-8 hidden">
+        <button onclick="backToStore()" class="mb-6 flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold cursor-pointer bg-transparent border-none">
+            <i class="fa-solid fa-arrow-right"></i> العودة للمتجر واستكمال التسوق
+        </button>
+
+        <h1 class="text-3xl font-black text-gray-800 dark:text-white mb-8">مراجعة طلبك والفاتورة</h1>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+            <div class="w-full lg:w-2/3 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                <div id="checkout-items" class="space-y-6">
+                    </div>
+            </div>
+
+            <div class="w-full lg:w-1/3">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 sticky top-24">
+                    <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-4 border-b border-gray-100 dark:border-gray-700 pb-3">ملخص الفاتورة</h3>
+                    
+                    <div class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                        <div class="flex justify-between">
+                            <p>المجموع الفرعي</p>
+                            <p id="invoice-subtotal">$0.00</p>
+                        </div>
+                        <div class="flex justify-between text-green-600 dark:text-green-400 font-medium">
+                            <p>مصاريف الشحن</p>
+                            <p>مجاني</p>
+                        </div>
+                        <hr class="border-gray-100 dark:border-gray-700 my-2">
+                        <div class="flex justify-between text-lg font-black text-gray-900 dark:text-white">
+                            <p>الإجمالي الكلي</p>
+                            <p id="invoice-total">$0.00</p>
+                        </div>
+                    </div>
+
+                    <button onclick="confirmOrder()" class="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl transition-colors shadow-lg shadow-indigo-100 dark:shadow-none">
+                        تأكيد وإرسال الطلب 💳
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div onclick="toggleCart()" class="absolute inset-0 bg-gray-500/75 backdrop-blur-sm"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white shadow-xl flex flex-col">
+                <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+                    <h2 class="text-lg font-bold text-gray-900">سلة التسوق</h2>
+                    <button onclick="toggleCart()" class="text-gray-400 hover:text-gray-500 text-xl bg-transparent border-none cursor-pointer">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-6"></div>
+                <div class="p-6 border-t border-gray-100 bg-gray-50">
+                    <div class="flex justify-between text-base font-bold text-gray-900 mb-4">
+                        <p>المجموع الإجمالي</p>
+                        <p id="cart-total">$0.00</p>
+                    </div>
+                    <button onclick="goToCheckout()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 rounded-xl transition-colors shadow-lg shadow-indigo-100">
+                         الذهاب للدفع
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="product-modal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+        <div onclick="closeModal()" class="fixed inset-0 bg-black/50 backdrop-blur-sm"></div>
+        
+        <div class="relative min-h-screen flex items-center justify-center p-4">
+            <div class="relative bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full p-6 shadow-2xl transition-all border border-gray-100 dark:border-gray-700 flex flex-col md:flex-row gap-6">
+                
+                <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-xl bg-transparent border-none cursor-pointer z-10">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+                <div class="w-full md:w-1/2 flex items-center justify-center bg-gray-50 dark:bg-gray-900 rounded-xl p-4 min-h-[250px]">
+                    <img id="modal-img" src="" alt="" class="max-h-60 object-contain">
+                </div>
+
+                <div class="w-full md:w-1/2 flex flex-col justify-between">
+                    <div>
+                        <span id="modal-cat" class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400"></span>
+                        <h2 id="modal-title" class="text-xl font-bold text-gray-900 dark:text-white mt-2 mb-4 leading-snug"></h2>
+                        <p id="modal-desc" class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-4"></p>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span id="modal-price" class="text-2xl font-black text-gray-900 dark:text-white"></span>
+                            <div class="flex items-center gap-1 text-amber-500 text-sm font-bold bg-amber-50 dark:bg-amber-950/30 px-2 py-1 rounded-md">
+                                <i class="fa-solid fa-star"></i>
+                                <span id="modal-rating"></span>
+                            </div>
+                        </div>
+                        
+                        <div id="modal-action-box"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="js/cart.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
